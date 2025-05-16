@@ -1,2 +1,2 @@
 # containerized
-Containerized contains the containers running on my synology server
+Docker containers on my synology server
