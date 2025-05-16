@@ -1,11 +1,11 @@
 # containerized
 Docker containers on my synology server
 
+<img width="29" alt="image" src="https://github.com/user-attachments/assets/3523281e-fbf2-49c6-9281-2133c832533a" />
+
 ---
 
-## 📁 Folder Structure Suggestion
-
-Here's how your directory layout should look on the NAS:
+## 📁 Folder Structure
 
 ```
 /volume1/docker/plex/
@@ -22,45 +22,23 @@ version: '3.3'
 
 services:
   plex:
-    image: linuxserver/plex:latest
+    image: plexinc/pms-docker:latest
     container_name: plex
     restart: unless-stopped
     network_mode: host  # recommended for DLNA/local discovery
     environment:
       - PUID=1050            # Replace with your plexuser UID
       - PGID=100             # Replace with your plexuser GID
-      - TZ=Europe/Athens     # Change to your timezone
+      - TZ=Europe/Berlin     # Change to your timezone
+      - PLEX_CLAIM=...       # https://account.plex.tv/en/claim
     volumes:
       - /volume1/docker/plex/config:/config
       - /volume1/media:/media  # Adjust if your media is elsewhere
 ```
 
-> 🔒 Be sure to replace `PUID`, `PGID`, and `TZ` with values that match your system.
-
----
-
-## 📄 README.md
-
-```markdown
-# Plex Media Server (Docker on Synology NAS)
-
-This project runs Plex Media Server in a Docker container on Synology DSM using a secure and reusable setup.
-
----
-
-## 📁 Folder Structure
-
-```
-
-/volume1/docker/plex/
-├── config/      → Plex metadata, library DBs
-└── media/       → Mount your actual media here (or bind from another folder)
-
 ````
 
----
-
-## ⚙️ Setup Instructions
+## ⚙️ Synology 
 
 ### 1. Create a dedicated Plex user
 
@@ -131,12 +109,4 @@ Sign in and start scanning your media library.
   devices:
     - /dev/dri:/dev/dri
   ```
-* Secure your NAS: enable firewall, 2FA, and avoid using "Everyone" permissions
-* Keep backups of `/config` to preserve your Plex library
 
-```
-
----
-
-Would you like me to package this into a downloadable `.zip`, or would you like to copy these files to your NAS manually?
-```
